@@ -11,6 +11,7 @@
 // @match        *://tsf-client.gala.com/*
 // @run-at       document-start
 // @grant        GM_xmlhttpRequest
+// @grant        GM_info
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
@@ -4184,6 +4185,11 @@ const recipes = {
         "FileUrl": "files/assets/128779922/1/icon_worms.png?t=8d5d492b004261bcbb7b5cef358c3432"
     }
 };
+
+
+
+
+
 // add function to buttons
 // Make the buttons clickable
 const donateButtonc = document.querySelector('.bottom-nav-donate button.confirm');
@@ -4244,17 +4250,83 @@ function closeDonateModal() {
     // Remove the window resize event listener
     $(window).off('resize', positionModal);
 }
+
 // Function to handle the "Escape" key
 function handleEscapeKey(event) {
     if (event.key === 'Escape') {
         closeDonateModal();
     }
 }
-const versionButtonc = document.querySelector('.bottom-nav-version button.cancel');
-versionButtonc.addEventListener('click', () => {
-    // Add the desired functionality for the version button
-    // For example, you can open a new window with release notes or other information.
-    alert('Version button clicked!');
-});
+
+
+
+
+
+
+//auto update script
+
+const githubRepo = 'cryptodude-go/townstar-calculator';
+const currentVersion = GM_info.script.version;
+
+function checkForUpdate() {
+    GM_xmlhttpRequest({
+        method: 'GET',
+        url: `https://api.github.com/repos/${githubRepo}/releases/latest`,
+        onload: function (response) {
+            if (response.status === 200) {
+                const releaseInfo = JSON.parse(response.responseText);
+                const latestVersion = releaseInfo.tag_name.substring(1); // Remove 'v' from version
+
+                if (compareVersions(latestVersion, currentVersion) === 1) {
+                    // Newer version available, show alert
+                    alert(`New version ${latestVersion} available. Script will be updated shortly.`);
+                    updateScript(releaseInfo.assets[0].browser_download_url);
+                } else {
+                    alert('You are using the latest version.');
+                }
+            } else {
+                console.error('Failed to fetch release information from GitHub');
+            }
+        }
+    });
+}
+
+function updateScript(downloadUrl) {
+    GM_xmlhttpRequest({
+        method: 'GET',
+        url: downloadUrl,
+        responseType: 'arraybuffer',
+        onload: function (response) {
+            if (response.status === 200) {
+                const scriptBlob = new Blob([response.response], { type: 'application/javascript' });
+                const scriptUrl = URL.createObjectURL(scriptBlob);
+                eval(scriptUrl);
+            } else {
+                console.error('Failed to download the updated script');
+            }
+        }
+    });
+}
+
+function compareVersions(version1, version2) {
+    const parts1 = version1.split('.').map(Number);
+    const parts2 = version2.split('.').map(Number);
+
+    for (let i = 0; i < 3; i++) {
+        if (parts1[i] > parts2[i]) return 1;
+        if (parts1[i] < parts2[i]) return -1;
+    }
+
+    return 0;
+}
+
+// Call checkForUpdate when the versionButtonc is clicked
+const versionButtonc = document.querySelector('.bottom-nav-version button');
+versionButtonc.addEventListener('click', checkForUpdate);
+
+
+
 populateCraftsDropdownvtwo();
+
+
 })();
