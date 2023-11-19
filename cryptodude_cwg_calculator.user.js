@@ -10,6 +10,7 @@
 // @match        *://*.gala.games/games/tsg-playtest
 // @match        *://tsf-client.gala.com/*
 // @run-at       document-start
+// @grant        GM_xmlhttpRequest
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
