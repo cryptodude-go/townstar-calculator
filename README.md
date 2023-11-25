@@ -9,7 +9,7 @@
 <p style="font-size:14px">  - Next to do is auto-update button.</p>
 <p style="font-size:14px">  - Fixed some type mistakes.</p>
 
-(https://github.com/cryptodude-go/townstar-calculator/assets/96671005/21090f26-7665-4c06-9b63-6390c0537ea5)
+<img src="https://lwgtsv.dnkdesign.com.mk/images/townstar-calculator.png">
 
 <p style="font-size:24px"><b>Enjoy it!</b></p>
 
