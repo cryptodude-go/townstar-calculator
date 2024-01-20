@@ -1,5 +1,5 @@
 # CRYPTODUDE CWG (townstar) Calculator
-<p style="font-size:18px"><b>Latest Version 0.0.1119b</b></p>
+<p style="font-size:18px"><b>Latest Version 0.0.1120b</b></p>
 <p style="font-size:14px">  - Open ingame the calculator with c or C</p>
 <p style="font-size:14px">  - New total reworked UI and restyled everything.</p>
 <p style="font-size:14px">  - Added Help icon with tooltip.</p>
