@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         CRYPTODUDE CWG Calculator
+// @name         CRYPTODUDE CGW Calculator
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1119b
-// @description  CWG Calculator for Common World Ground is a specific ingame overlay build calculator with the option to write current production per hour and improve your build.
+// @version      0.1.1120b
+// @description  CGW Calculator for Common World Ground is a specific ingame overlay build calculator with the option to write current production per hour and improve your build.
 // @author       Special thanks to Oizys (you are the man) for many functions to make it work in-game. Modified by CRYPTODUDE for better functioning + minor tweaks
 // @match        *://*.gala.com/games/town-star
 // @match        *://*.gala.games/games/town-star
@@ -15,11 +15,16 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
-// @require      https://lwgtsv.dnkdesign.com.mk/recipes.js
+// @require      https://lwgtsv.dnkdesign.com.mk/recipes.js?timestamp=@TIMESTAMP@
 // ==/UserScript==
 
+// CRYPTODUDE CGW Calculator 0.0.1120a
+// changes
+//  - Added timestamp so it can load correctly the recipes from normal visuliaser.
+//  - This will be last auto recipes version.
+//  - Fixed some type mistakes.
 
-// CRYPTODUDE CWG Calculator 0.0.1119a
+// CRYPTODUDE CGW Calculator 0.0.1119a
 // changes
 //  - You can open close the calculator by pressing c or C
 //  - New total reworked UI and restyled everything.
@@ -30,21 +35,28 @@
 //  - Next to do is auto-update button.
 //  - Fixed some type mistakes.
 
-// CRYPTODUDE CWG Calculator 0.0.1118a
+// CRYPTODUDE CGW Calculator 0.0.1118a
 // changes
 //  - Newest Apple Pie recipe added.
 
-// CRYPTODUDE CWG Calculator-Build 0.0.1023a
+// CRYPTODUDE CGW Calculator-Build 0.0.1023a
 // changes
 //  - Changed version to be more date oriented.
 //  - Added newest recipes and newest meta.
 
-// CRYPTODUDE CWG Calculator-Build 0.0.01a
+// CRYPTODUDE CGW Calculator-Build 0.0.01a
 // changes
 //  - First build of the calculator (there will be a lot of fixes).
 
 (function() {
     'use strict';
+
+        // Generate a timestamp
+    const timestamp = new Date().getTime();
+
+    // Replace @TIMESTAMP@ in the @require directive with the actual timestamp
+    const scriptUrl = `https://lwgtsv.dnkdesign.com.mk/recipes.js?timestamp=${timestamp}`;
+    GM_addStyle(`@require ${scriptUrl}`);
 
     // Add your CSS styles
     GM_addStyle(`
@@ -899,7 +911,7 @@
           <div id="donateModal" class="modal">
               <div class="modal-content">
                   <span class="modal-close">&times;</span>
-                  <iframe src="https://lwgtsv.dnkdesign.com.mk/donation.html" width="600" height="450" scrolling="no" frameborder="0"></iframe>
+                  <iframe src="https://lwgtsv.dnkdesign.com.mk/cryptodude-donation.html" width="600" height="450" scrolling="no" frameborder="0"></iframe>
               </div>
           </div>
       `;
